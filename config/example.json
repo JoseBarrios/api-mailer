@@ -1,0 +1,6 @@
+{
+  "apiVersion": "2010-12-01",
+  "accessKeyId": "EXAMPLE",
+  "secretAccessKey": "EXAMPLE",
+  "region": "eu-west-1"
+}
