@@ -11,7 +11,7 @@ var Mailer = class Mailer {
     this.transporter = nodemailer.createTransport({SES: new aws.SES(configFile)})
   }
 
-  sendEmail(email, sender, recipient){
+  sendEmail(sender, recipient, email){
     return new Promise((resolve, reject) => {
       //var html = pug.renderFile(`${__dirname}/views/${email}.pug`);
       //var cssPath = `${__dirname}/views/stylesheets/${email}.css`
