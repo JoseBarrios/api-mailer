@@ -15,7 +15,11 @@ var Mailer = class Mailer {
     return new Promise((resolve, reject) => {
       var data = {};
       data.from = `${email.sender.givenName} ${email.sender.familyName} <${email.sender.email}>`;
-      data.to = `${email.recipient.givenName} ${email.recipient.familyName} <${email.recipient.email}>`
+      if(email.recipient.givenName || email.recipient.familyName){
+        data.to = `${email.recipient.givenName} ${email.recipient.familyName} <${email.recipient.email}>`
+      } else {
+        data.to = `<${email.recipient.email}>`
+      }
       data.subject = `${email.about}`
       data.text = `${email.text}`;
       data.html = `${email.HTML}`;

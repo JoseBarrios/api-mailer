@@ -22,3 +22,7 @@ email.text = "This is the text content"
 email.HTML = "<p> This is the HTML content </p>"
 
 mailer.sendEmail(email).then(console.log).catch(console.error)
+
+recipient.givenName = null;
+recipient.familyName = null;
+mailer.sendEmail(email).then(console.log).catch(console.error)
