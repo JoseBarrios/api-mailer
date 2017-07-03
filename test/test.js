@@ -15,8 +15,10 @@ sender.email = "hello@cognilab.com";
 
 
 let email = {};
-email.subject = "Subject line";
-email.textContent = "This is the text content"
-email.htmlContent = "<p> This is the HTML content </p>"
+email.sender = sender;
+email.recipient = recipient;
+email.about = "Subject line";
+email.text = "This is the text content"
+email.HTML = "<p> This is the HTML content </p>"
 
-mailer.sendEmail(email, sender, recipient)
+mailer.sendEmail(email).then(console.log).catch(console.error)

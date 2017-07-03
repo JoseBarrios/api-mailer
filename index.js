@@ -11,17 +11,14 @@ var Mailer = class Mailer {
     this.transporter = nodemailer.createTransport({SES: new aws.SES(configFile)})
   }
 
-  sendEmail(sender, recipient, email){
+  sendEmail(email){
     return new Promise((resolve, reject) => {
-      //var html = pug.renderFile(`${__dirname}/views/${email}.pug`);
-      //var cssPath = `${__dirname}/views/stylesheets/${email}.css`
-      //var inlined = juice.inlineContent(html,css);
       var data = {};
-      data.from = `${sender.givenName} ${sender.familyName} <${sender.email}>`;
-      data.to = `${recipient.givenName} ${recipient.familyName} <${recipient.email}>`
-      data.subject = `${email.subject}`
-      data.text = `${email.textContent}`;
-      data.html = `${email.htmlContent}`;
+      data.from = `${email.sender.givenName} ${email.sender.familyName} <${email.sender.email}>`;
+      data.to = `${email.recipient.givenName} ${email.recipient.familyName} <${email.recipient.email}>`
+      data.subject = `${email.about}`
+      data.text = `${email.text}`;
+      data.html = `${email.HTML}`;
       this.transporter.sendMail(data, (err, info) =>{
         if(err){ reject(err) }
         else { resolve(info); }
