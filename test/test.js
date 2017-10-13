@@ -5,13 +5,12 @@ var mailer = new Mailer(config);
 let recipient = {};
 recipient.givenName = "RecipientFirst"
 recipient.familyName = "RecipientLast"
-recipient.email = "test@cognilab.com"
-
+recipient.email = "test@recipient.com"
 
 let sender = {};
 sender.givenName ="SenderFirst";
 sender.familyName = "SenderLastName";
-sender.email = "hello@cognilab.com";
+sender.email = "hello@sender.com";
 
 
 let email = {};
@@ -21,8 +20,4 @@ email.about = "Subject line";
 email.text = "This is the text content"
 email.HTML = "<p> This is the HTML content </p>"
 
-mailer.sendEmail(email).then(console.log).catch(console.error)
-
-recipient.givenName = null;
-recipient.familyName = null;
 mailer.sendEmail(email).then(console.log).catch(console.error)

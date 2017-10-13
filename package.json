@@ -1,12 +1,11 @@
 {
-  "name": "@josebarrios/mailer",
-  "version": "1.1.1",
+  "name": "api-mailer",
+  "version": "1.0.0-beta",
   "description": "Mail notification system",
   "main": "index.js",
   "dependencies": {
     "aws-sdk": "^2.36.0",
-    "nodemailer": "^4.0.1",
-    "pug": "^2.0.0-beta6"
+    "nodemailer": "^4.0.1"
   },
   "repository": "https://github.com/JoseBarrios/mailer",
   "scripts": {
