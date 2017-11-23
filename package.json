@@ -1,17 +1,20 @@
 {
   "name": "api-mailer",
-  "version": "1.0.0-beta",
+  "version": "1.1.0",
   "description": "Mail notification system",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.36.0",
-    "nodemailer": "^4.0.1"
+    "@sendgrid/mail": "^6.1.4",
+    "aws-sdk": "^2.36.0"
   },
-  "repository": "https://github.com/JoseBarrios/mailer",
+  "repository": "https://github.com/JoseBarrios/api-mailer",
   "scripts": {
     "start": "node index.js",
-    "test": "node ./test/test.js"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "author": "JoseBarrios",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "mocha": "^4.0.1"
+  }
 }

@@ -1,0 +1,4 @@
+{
+  "provider": "sendgrid",
+  "key": "SEND_GRID_API_KEY"
+}

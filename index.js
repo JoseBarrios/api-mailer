@@ -1,43 +1,31 @@
 'use strict'
 
-//var pug = require('pug');
-let aws = require('aws-sdk');
-var nodemailer = require('nodemailer')
-
 var Mailer = class Mailer {
 
-  constructor(configFile){
-    if(!configFile){ console.error('Mailer could not find a configuration file')}
-    this.transporter = nodemailer.createTransport({SES: new aws.SES(configFile)})
+  constructor(config){
+
+		const provider = config.provider.toLowerCase();
+		switch(provider){
+			case "sendgrid":
+				const SendGridMailer = require('./providers/sendgrid.js');
+				this.api = new SendGridMailer(config);
+				break;
+			case "aws":
+				const AWSMailer = require('./providers/aws.js');
+				this.api = new AWSMailer(config);
+				break;
+			default:
+				console.log('error: service not supported', service);
+		}
   }
 
   sendEmail(email){
-    return new Promise((resolve, reject) => {
-      var data = {};
-      data.from = `${email.sender.givenName} ${email.sender.familyName} <${email.sender.email}>`;
-      if(email.recipient.givenName || email.recipient.familyName){
-        data.to = `${email.recipient.givenName} ${email.recipient.familyName} <${email.recipient.email}>`
-      } else {
-        data.to = `<${email.recipient.email}>`
-      }
-      data.subject = `${email.about}`
-      data.text = `${email.text}`;
-      data.html = `${email.HTML}`;
-      this.transporter.sendMail(data, (err, info) =>{
-        if(err){ reject(err) }
-        else { resolve(info); }
-      })
-    })
+		return new Promise((resolve, reject) => {
+			this.api.sendEmail(email)
+				.then(resolve)
+				.catch(reject)
+		})
   }
-
-  success(response){
-    console.log('SUCESS', response);
-  }
-
-  error(errorMsg){
-    console.log('ERROR', errorMsg);
-  }
-
 };
 
 module.exports = Mailer;
