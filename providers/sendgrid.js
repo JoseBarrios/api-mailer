@@ -1,12 +1,13 @@
 'use strict'
 
+const SendGrid = require('@sendgrid/mail');
 
 const SendGridMailer = class SendGridMailer {
 
   constructor(config){
 		const provider = config.provider.toLowerCase();
 		if(provider === "sendgrid"){
-			this.api = require('@sendgrid/mail');
+			this.api = SendGrid;
 			this.api.setApiKey(config.key);
 		}
 		//Wrong config
@@ -21,8 +22,8 @@ const SendGridMailer = class SendGridMailer {
 				to: message.recipient.email,
 				from: message.sender.email,
 				subject: message.about,
-				text: message.text,
-				html: message.messageAttachment,
+				text: message.description,
+				html: message.text,
 			};
 
 			this.api.send(msg);
