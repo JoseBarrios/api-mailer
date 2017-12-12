@@ -1,12 +1,15 @@
 'use strict'
 
+const AWS = require('aws-sdk');
+
 const AWSMailer = class AWSMailer {
 
   constructor(config){
-		//const nodemailer = require('nodemailer')
 		const provider = config.provider.toLowerCase();
 		if(config.provider = 'aws'){
-			const AWS = require('aws-sdk');
+			let awsConfig = new AWS.Config();
+			awsConfig.update({accessKeyId: config.accessKeyId});
+			awsConfig.update({secretAccessKey: config.secretAccessKey});
 			this.api = new AWS.SES(config);
 		}
 		else {
@@ -17,44 +20,38 @@ const AWSMailer = class AWSMailer {
 
   sendEmail(message){
 		return new Promise((resolve, reject) => {
-			let sesEmail = this._convert(message);
-			this.api.sendEmail(sesEmail, function(err, data) {
+			let email = this._transpose(message);
+			this.api.sendEmail(email, function(err, data) {
 				if(err) reject(err);
 				else resolve(data);
 			})
 		})
   }
 
-	_convert(msg){
+	_transpose(msg){
+		let sender = msg.sender;
+		let recipient = msg.recipient;
 		return {
-			/* required */
+			Source: `${sender.givenName} ${sender.familyName} <${sender.email}>`,
 			Destination: {
-				ToAddresses: [ `${msg.recipient.email}` ]
+				ToAddresses: [ `${recipient.email}` ]
 			},
-			/* required */
 			Message: {
-				/* required */
+				Subject: {
+					Data: `${msg.about}`,
+					Charset: 'UTF-8'
+				},
 				Body: {
 					Html: {
-						/* required */
-						Data: `${msg.messageAttachment}`,
+						Data: `${msg.text}`,
 						Charset: 'UTF-8'
 					},
 					Text: {
-						/* required */
-						Data: `${msg.text}`,
+						Data: `${msg.description}`,
 						Charset: 'UTF-8'
 					}
-				},
-				/* required */
-				Subject: {
-					/* required */
-					Data: `${msg.about}`,
-					Charset: 'UTF-8'
 				}
-			},
-			/* required */
-			Source: `${msg.sender.email}`
+			}
 		};
 	}
 

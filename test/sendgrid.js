@@ -5,12 +5,12 @@ var mailer = new Mailer(config);
 let recipient = {};
 recipient.givenName = "RecipientFirst"
 recipient.familyName = "RecipientLast"
-recipient.email = "sendgrid@barrios.io"
+recipient.email = "jose@barrios.io"
 
 let sender = {};
 sender.givenName ="SenderFirst";
 sender.familyName = "SenderLastName";
-sender.email = "test@example.com";
+sender.email = "jose@bevisible.soy";
 
 let email = {};
 email.sender = sender;
