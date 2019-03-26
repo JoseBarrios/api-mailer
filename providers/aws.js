@@ -1,5 +1,6 @@
 'use strict'
 
+const striptags = require('striptags');
 const AWS = require('aws-sdk');
 
 const AWSMailer = class AWSMailer {
@@ -47,14 +48,13 @@ const AWSMailer = class AWSMailer {
 						Charset: 'UTF-8'
 					},
 					Text: {
-						Data: `${msg.description}`,
+						Data: `${striptags(msg.text)}`,
 						Charset: 'UTF-8'
 					}
 				}
 			}
 		};
 	}
-
 };
 
 module.exports = AWSMailer;

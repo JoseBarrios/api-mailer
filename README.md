@@ -17,31 +17,32 @@ $ npm install api-mailer
 *SendGrid*: Setup your config file with your SendGrid API Key. [See example](https://github.com/JoseBarrios/api-mailer/blob/master/config/sendgrid-example.json).
 ### Basic usage
 ```js
-var sgConfig = require('sendgrid-secret.json') 
-var awsConfig = require('aws-secret.json') 
+var sgConfig = require('./config/sendgrid-example.json')
+var awsConfig = require('./config/aws-example.json')
 
-var Mailer = require('api-mailer');  
+var EmailMessage = require('dc-email-message');
+var Mailer = require('api-mailer');
+var Person = require('dc-person');
 //It will detect the service provider on config file and use it
 var mailer = new Mailer(sgConfig);
 
-let recipient = {};
-recipient.givenName = "RecipientFirst";    
-recipient.familyName = "RecipientLast";     
+const recipient = new Person();
+recipient.givenName = "RecipientFirst";
+recipient.familyName = "RecipientLast";
 recipient.email = "test@recipient.com";
 
-let sender = {};
+const sender = new Person();
 sender.givenName ="SenderFirst";
 sender.familyName = "SenderLastName";
 sender.email = "hello@sender.com";
 
-let email = {};
+let email = new EmailMessage();
 email.recipient = recipient;
 email.sender = sender;
 email.subject = "Subject line";
-email.textContent = "This is the text content"
-email.htmlContent = "<p> This is the HTML content </p>"
+email.text = "This is the text content"
 
-mailer.sendEmail(email)     
+mailer.sendEmail(email)
     .then(response => {/* success */})
     .catch(error => {/* error */})
 

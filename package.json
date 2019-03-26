@@ -5,7 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
-    "aws-sdk": "^2.36.0"
+    "aws-sdk": "^2.428.0",
+    "dc-email-message": "^0.2.1",
+    "dc-person": "^0.1.23",
+    "striptags": "^3.1.1"
   },
   "repository": "https://github.com/JoseBarrios/api-mailer",
   "scripts": {
@@ -15,6 +18,6 @@
   "author": "JoseBarrios",
   "license": "UNLICENSED",
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^6.0.2"
   }
 }
