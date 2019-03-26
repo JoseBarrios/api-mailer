@@ -1,28 +1,19 @@
-/*var config = require('../config/sendgrid-secret.json')*/
-//var Mailer = require('../index.js');
-//var mailer = new Mailer(config);
+const appInfo = require('../../config-oplab/application.json')
+var config = require('../../config-oplab/sendgrid.json')
+const EmailMessage = require('dc-email-message');
+var mailer = require('../index.js');
+var mailer = new mailer(config);
 
-//let recipient = {};
-//recipient.givenName = "RecipientFirst"
-//recipient.familyName = "RecipientLast"
-//recipient.email = "jose@barrios.io"
+const emailMessage = new EmailMessage();
+emailMessage.sender = config.sender;
+emailMessage.recipient = appInfo.administrator;
+emailMessage.about = "Mailer Sendgrid Test";
+emailMessage.text = "<p style='color:green'> This is the Mailer (Sendgrid) HTML content </p>"
 
-//let sender = {};
-//sender.givenName ="SenderFirst";
-//sender.familyName = "SenderLastName";
-//sender.email = "jose@bevisible.soy";
-
-//let email = {};
-//email.sender = sender;
-//email.recipient = recipient;
-//email.about = "Subject line";
-//email.text = "This is the Mailer (SendGrid) text content"
-//email.messageAttachment = "<p style='color:green'> This is the Mailer (SendGrid) HTML content </p>"
-
-//describe("Mailer SendGrid", function() {
-	//it("#sendEmail", function(done) {
-		//mailer.sendEmail(email)
-			//.then(res  => { done(); })
-			//.catch(err => { done(err); })
-	//})
-/*})*/
+describe("mailer sendgrid", function() {
+  it("#sendemail", function(done) {
+    mailer.sendEmail(emailMessage)
+      .then(res  => { done(); })
+      .catch(err => { done(err); })
+  })
+})
